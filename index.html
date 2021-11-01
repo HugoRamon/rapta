@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Rapta - L'app. qui sauve des vies (et des permis)</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/png" href="img/logo.png" />
+        <link href="https://fonts.googleapis.com/css?family=Norican" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.js"></script>
+    </head>
+    <body>
+        <section class="main-container">
+          <!--Bulle-->
+          <div id="wrapper" class="wrapper">
+            <!--Info-->
+            <article class="info">
+             <div class="info-div">
+              <h3>Rapta.fr 🍸 est la version web mobile d'une application destinée à estimer approximativement votre taux d'alcoolémie immédiat et prévisionnel dans le sang</h3>
+              <h3>Toujours en cours de développement, je suis à la recherche de financement et de collaboration avec des profils techniques ou marketing 💣</h3>
+              <h3>Si l'aventure vous intéresse ou pour obtenir plus d'informations, je vous invite à me contacter par email à l'adresse rapta.application@gmail.com 📧</h3>
+             </div>
+             <button class="info-button-refresh" onclick="refresh()"><p>&#8592;</p></button>
+            </article>
+            <!--Home-->
+            <article class="home showArticle">
+              <div id="div-info" onclick="changeView('', '.info', '.home');">
+                <img src="img/info.png">
+              </div>
+                <h2>Bienvenue sur Rapta ! 🍸</h2>
+                <h3>L'appli qui sauve des vies<br>(et des permis)</h3>
+                <button class="home-button"><p>Calculer</p></button>
+            </article>
+            <!--Gender-->
+            <article class="gender">
+              <h2>Mon genre 👶</h2>
+              <button class="gender-button-male" onclick="genre('m')"><p>&#9794;</p></button>
+              <button class="gender-button-female" onclick="genre('f')"><p>&#9792;</p></button>
+            </article>
+            <!--Height-->
+            <article class="height">
+              <h2>Mon poids 💪</h2>
+              <span><p class="range-value-height">85</p>kg</span>
+              <input type="range" id="poids" min="40" max="130" class="height-input" />
+              <button class="height-button"><p>&#8594;</p></button>
+            </article>
+            <!--Dosage
+            <article class="dosages">
+              <h2>Mes dosages 🔥</h2>
+              <h3>10g = Une dose bar / shooter<br>30g = La moitié du verre</h3>
+              <div id="container">
+                <div id="glass">
+                    <div id="cubes">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div id="alcool">
+                      <span class="range-value-dosages-span"><p class="range-value-dosages">20</p>g</span>
+                    </div>
+                </div>
+              </div>
+              <input type="range" min="10" max="30" id="quantite" class="dosages-input" />
+              <button class="conso-button" id="quantite"><p>&#8594;</p></button>
+            </article>-->
+            <!--Conso-->
+            <article class="conso">
+              <h2>Nombre de verres bus par heure ⏰</h2>
+              <h3>En dose-bars, chaque verre contient la même unité d'alcool (6 cl d’apéritif à 20° =
+25 cl de bière à 6°)</h3>    
+                <form>
+                  <div class="card" id="card-1">
+                  <label id="h1" for="n1"></label>
+              <div class="value-button" id="decrease" onclick="decreaseValue('n1')" value="Decrease Value">-</div>
+                  <input type="number" id="n1" value="0" />
+              <div class="value-button" id="increase" onclick="increaseValue('n1')" value="Increase Value">+</div>
+                  </div>
+              <br><br>
+              <div class="card" id="card-1">
+                  <label id="h2" for="n2"></label>
+              <div class="value-button" id="decrease" onclick="decreaseValue('n2')" value="Decrease Value">-</div>
+                  <input type="number" id="n2" value="0" />
+              <div class="value-button" id="increase" onclick="increaseValue('n2')" value="Increase Value">+</div>
+              </div>
+                <br><br>
+                <div class="card" id="card-1">
+                    <label id="h3" for="n3"></label>
+                <div class="value-button" id="decrease" onclick="decreaseValue('n3')" value="Decrease Value">-</div>
+                    <input type="number" id="n3" value="0" />
+                <div class="value-button" id="increase" onclick="increaseValue('n3')" value="Increase Value">+</div>
+              </div>
+              <br><br>
+              <div class="card" id="card-1">
+                  <label id="h4" for="n4"></label>
+              <div class="value-button" id="decrease" onclick="decreaseValue('n4')" value="Decrease Value">-</div>
+                  <input type="number" id="n4" value="0" />
+              <div class="value-button" id="increase" onclick="increaseValue('n4')" value="Increase Value">+</div>
+              </div>
+                <br><br>
+                <div class="card" id="card-1">
+                    <label id="h5" for="n5"></label>
+                <div class="value-button" id="decrease" onclick="decreaseValue('n5')" value="Decrease Value">-</div>
+                    <input type="number" id="n5" value="0" />
+                <div class="value-button" id="increase" onclick="increaseValue('n5')" value="Increase Value">+</div>
+              </div>
+              <br><br>
+                <div class="card" id="card-1">
+                    <label id="h6" for="n6"></label>
+                <div class="value-button" id="decrease" onclick="decreaseValue('n6')" value="Decrease Value">-</div>
+                    <input type="number" id="n6" value="0" />
+                <div class="value-button" id="increase" onclick="increaseValue('n6')" value="Increase Value">+</div>
+              </div>
+              </form>
+            <button class="calc-button" onclick="calcul()"><p>Calculer</p></button>
+            </article>
+            <!--Result-->
+            <article class="result">
+              <h3 id="com-result"></h3>
+              <div class="pie-chart-container">
+                <svg viewBox="0 0 32 32">
+                  <circle r="16" cx="16" cy="16" class="pie-circle" />
+                </svg>
+                <span class="pie-chart-percentage">
+                  <p class="pie-chart-number">0</p>
+                  <h3>g/L d'alcool</h3>
+                </span>
+              </div>
+              <canvas id="graph"></canvas>
+              <button class="recalc-button" onclick="refresh()"><p>Recalculer</p></button>
+            </article>
+
+          </div>
+        </section>
+        <script type="text/javascript">
+            //init
+            window.sexo;
+            window.pds;
+            window.qtt;
+            var taux = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+            var heure = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            var dte = new Date();
+            var vide = 1;
+            var h = dte.getHours();
+            //remplissage du tableau des heures
+            for(var k = -5; k < 5; k++) {
+                dte.setHours(h+k);
+                var htemp = dte.getHours();
+                heure[k+5] = htemp + 'h';
+                //gestion des heures avec un carac
+                if(heure[k+5].length == 2) {
+                  heure[k+5] = '0' + heure[k+5];
+                }
+
+            }
+            //remplissage des heures affichés
+            for(var m = 1; m <= 6; m++) {
+              document.getElementById('h'+m).textContent = heure[m-1];
+            }
+            //const de calcul en fonction du sex
+            function genre(sex) {
+              //var global sex
+              if(sex == 'm') {
+                sexo = 0.7;
+              } else {
+                sexo = 0.6;
+              }
+            }
+            function calcul() {
+              //initialisation var global
+              pds = document.getElementById('poids').value;
+              qtt = 10; //document.getElementById('quantite').value;
+              //calcul + remplissage du tableau
+              for(var i = 1; i <= heure.length; i++) {
+                  if(i <= 6) {
+                      var nbr = document.getElementById('n' + i).value;
+                  } else {
+                      var nbr = 0
+                  }
+                  if(nbr != 0) {
+                      taux[i] = Math.round(((qtt * nbr) / (pds * sexo))*100)/100 + taux[i-1];
+                      vide = 0;
+                  } else {
+                      if(taux[i-1] > 0.2) {
+                          taux[i] = Math.round((taux[i-1] - 0.2)*100)/100;
+                      }
+                  }
+              }
+              //affichage des résultats
+              affichageCom();
+              affichageGraph();
+            }
+            //affichage du commentaires
+            function affichageCom() {
+              var result = (taux[5] == 0 ? Math.round(taux[6]*100)/100 : Math.round(taux[5]*100)/100);
+              if(result > 2) {
+                document.getElementById('com-result').innerHTML = "T'es complétement defoncé " + (sexo == 0.7 ? "mec" : "meuf") + " 🤮";
+              }
+              else if(result > 1) {
+                document.getElementById('com-result').innerHTML = "T'es bourré " + (sexo == 0.7 ? "mec" : "meuf") + " 🥴";
+              }
+              else if(result > 0.5) {
+                document.getElementById('com-result').innerHTML = "Pas de volant pour l'instant 😒";
+              }
+              else if(result > 0.2) {
+                document.getElementById('com-result').innerHTML = "Jeune conducteur, c'est mort ⛔️";
+              }
+              else if(result > 0) {
+                document.getElementById('com-result').innerHTML = "A peine alcoolisé bro 😘";
+              }
+              else if(result == 0) {
+                document.getElementById('com-result').innerHTML = "Tu es à zéro ! La fête commence ? 🥳"
+              }
+            }
+            //affichage du graph
+            function affichageGraph() {
+              var ctx = document.getElementById('graph').getContext('2d');
+              var data = {
+                  labels: heure,
+                  datasets: [{
+                      label: '',
+                      backgroundColor: '#fff',
+                      borderColor: "#fff",
+                      data: taux,
+                      tension: 0.4
+                  }]
+              }
+              var options = {
+                scales: {
+                    // Heures en abscices
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 30,
+                            },
+                            color: "white"
+                        }
+                    },
+                    // Taux en ordonnées
+                    y: {
+                        ticks: {
+                            font: {
+                                size: 45,
+                            },
+                            color: "white"
+                        }
+                    }
+                }
+              };
+              var config = {
+                  type: 'line',
+                  data: data,
+                  options: options
+                  
+              };
+              if(vide == 0) {
+                var graph1 = new Chart(ctx, config);
+              }
+            }
+            //rafraichir la page
+            function refresh() {
+              window.location.reload();
+            }
+            //init autre (?)
+              let i = 0;
+              let style = (function() {
+                  let style = document.createElement('style');
+                  style.appendChild(document.createTextNode(''));
+                  document.head.appendChild(style);
+                  return style;
+              })();
+            //input Range Height  
+            function changeRangeValueHeight(){
+              let textContainer;
+              
+              if(this.classList.contains('height-input')) {
+                textContainer = document.querySelector('.range-value-height'); 
+              }
+              textContainer.innerText = this.value;
+            }
+            //input Range Dosages
+            function changeRangeValueDosages(){
+              let textContainer;
+              
+              if(this.classList.contains('dosages-input')) {
+                textContainer = document.querySelector('.range-value-dosages'); 
+              }
+              textContainer.innerText = this.value;
+              var height = (this.value * 8).toString() + "px";
+              document.getElementById("alcool").style.height = height;
+            }
+            //changement de vue
+            function setVisibility(to, from) {
+              let oldView = document.querySelector(from); 
+              let newView = document.querySelector(to);
+              
+              oldView.classList.remove('showArticle');
+              newView.classList.add('showArticle');  
+            }
+            //init Counter avant changement de vue
+            function changeView(value, to, from) {
+              if(from === '.conso') {
+                counter(taux[5] == 0 ? Math.round(taux[6]*100)/100 : Math.round(taux[5]*100)/100);
+              } 
+              setVisibility(to, from);
+            }
+            //animation Resultat Counter
+              function setAnimation(value) {               
+                if(style.sheet.cssRules.length != 0) {
+                  for(let j = 0; j < style.sheet.cssRules.length; j++) {
+                    style.sheet.deleteRule(j);
+                  }      
+                }                 
+                  style.sheet.insertRule(`@keyframes spin {
+                  to { stroke-dasharray: ` + value + ` 100; }
+                }`, 0);
+                
+                  if(value <= 0.2) {
+                    style.sheet.insertRule(`@keyframes changeBg {
+                      0% { stroke: #abd7eb; }
+                    100% { stroke: #abd7eb; }
+                }`, 0);   
+                  } else if(value <= 0.5 && value > 0.2) {
+                    style.sheet.insertRule(`@keyframes changeBg {
+                      0% { stroke: #abd7eb; }
+                      46% { stroke: #abd7eb; }
+                      100% { stroke: #a4f5ac; }
+                }`, 0); 
+                  } else if( value <= 0.8 && value > 0.5) {
+                    style.sheet.insertRule(`@keyframes changeBg {
+                      0% { stroke: #abd7eb; }
+                      46% { stroke: #abd7eb; }
+                      62% { stroke: #a4f5ac; }
+                      100% { stroke: #FFCC00; }
+                }`, 0); 
+                  } else if( value > 1.2) {
+                    style.sheet.insertRule(`@keyframes changeBg {
+                      0% { stroke: #abd7eb; }
+                      46% { stroke: #abd7eb; }
+                      62% { stroke: #a4f5ac; }
+                      75% { stroke: #FFCC00; }
+                    100% { stroke: #FF719A; }
+                }`, 0); 
+                  }
+              }
+
+            function counter(value) {
+              setAnimation(value * 100);
+              
+              let pieCircle = document.querySelector('.pie-circle');
+              pieCircle.classList.remove('startAnimation');  
+              i = 0.01;
+              
+              setTimeout( function() { 
+                pieCircle.classList.add('startAnimation'); 
+                document.querySelector('.pie-chart-number').innerHTML = value;                        
+              }, 300);
+            }
+            //fonction au click sur button
+            document.querySelector('.home-button').addEventListener('click', function() {
+              changeView('', '.gender', '.home');
+            });
+            document.querySelector('.gender-button-male').addEventListener('click', function() {
+              changeView('male', '.height', '.gender');
+            });
+            document.querySelector('.gender-button-female').addEventListener('click', function() {
+              changeView('female', '.height', '.gender');
+            });
+            document.querySelector('.height-button').addEventListener('click', function() {
+              let inputValue = document.querySelector('.height-input').value;
+              changeView(inputValue, '.conso', '.height');
+            });
+            /*
+            document.querySelector('.conso-button').addEventListener('click', function() {
+              let inputValue = document.querySelector('.dosages-input').value;
+              changeView(inputValue, '.conso', '.dosages');
+            });*/
+            document.querySelector('.calc-button').addEventListener('click', function() {
+              changeView('', '.result', '.conso');
+            });
+            document.querySelector('.recalc-button').addEventListener('click', function() {
+              changeView('', '.home', '.result');
+            });
+            document.querySelector('.height-input').addEventListener('input', changeRangeValueHeight);
+            //document.querySelector('.dosages-input').addEventListener('input', changeRangeValueDosages);
+            //ajoute +1 dans les conso
+            function increaseValue(id) {
+              var value = parseInt(document.getElementById(id).value, 10);
+              value = isNaN(value) ? 0 : value;
+              value++;
+              document.getElementById(id).value = value;
+            }
+            //enleve -1 dans les conso
+            function decreaseValue(id) {
+              var value = parseInt(document.getElementById(id).value, 10);
+              value = isNaN(value) ? 0 : value;
+              value < 1 ? value = 1 : '';
+              value--;
+              document.getElementById(id).value = value;
+            }
+            //gestion des bulles
+                let wrapper = document.getElementById('wrapper');
+                let spawnNumber = 20;
+                let bubbles = [];
+                let radius, speed, leftDeviation, topLimit = 0;
+
+                for(var al=0; al<spawnNumber; al++){
+                  //generating the random attributes of the bubbles
+                  attributeRandomizer();
+                  
+                  //creating and appending the bubbles
+                  //important:
+                  //set the radius and speed before creating the elements
+                  bubbles[al] = document.createElement('div');
+                  bubbles[al].classList.add('bubble');
+                  wrapper.appendChild(bubbles[al]);
+                  
+                  //setting the randomized values for each bubble
+                  setBubbleRadius(bubbles[al], radius);
+                  setBubbleDeviation(bubbles[al], leftDeviation);
+                  
+                  //letting the bubbles flow up :)
+                  bubbleFlow(bubbles[al], speed, topLimit);
+                }
+
+                function setBubbleRadius(bubble, size){
+                  bubble.style.width = size + 'px';
+                  bubble.style.height = size + 'px';
+                }
+
+                function setBubbleDeviation(bubble, deviation){
+                  bubble.style.left = deviation + 'px';
+                }
+
+                function attributeRandomizer(){
+                  speed = Math.floor(Math.random() * 10) + 1; 
+                  radius = Math.floor(Math.random() * 25) + 3; 
+                  leftDeviation = Math.floor(Math.random() * 400) + 20;
+                  topLimit = Math.floor(Math.random() * 350) + 200;
+                }
+                //a function containing all the randomizer
+                //for readability
+
+                function bubbleFlow(bubble, time, limit) {
+                  //setting up the start position of each bubble
+                  //beware though, the position is relative
+                  let startingPosition = 0;
+                  
+                  //getting the id of the interval
+                  let id = setInterval(flow, time, limit);
+                  
+                  //the function used inside the interval
+                  //managing the flow of the bubbles
+                  function flow() {
+                    if (startingPosition == limit) {
+                      //if the position is equal to the set limit
+                      //set it back to zero then increase it by one
+                      //apply it to the bubble
+                      startingPosition = 0;
+                      startingPosition++;
+                      bubble.style.bottom = 0 + startingPosition + 'px';
+                    } else {
+                      //if the position is not equal to the limit
+                      //increase the position
+                      //apply it to bubble
+                      startingPosition++; 
+                      bubble.style.bottom = startingPosition + "px";
+                    }
+                  }
+                }
+                //gestion des galçons dans le verre
+                var worker = null;
+                var loaded = 0;
+                function increment() {
+                    $('#counter').html(loaded+'%');
+                    $('#drink').css('top', (100-loaded*.9)+'%');
+                    if(loaded==25) $('#cubes div:nth-child(1)').fadeIn(100);
+                    if(loaded==50) $('#cubes div:nth-child(2)').fadeIn(100);
+                    if(loaded==75) $('#cubes div:nth-child(3)').fadeIn(100);
+                    if(loaded==100) {
+                        $('#lemon').fadeIn(100);
+                        $('#straw').fadeIn(300);
+                        loaded = 0;
+                        stopLoading();
+                        setTimeout(startLoading, 1000);
+                    }
+                    else loaded++;    
+                }
+        </script>
+    </body>
+</html>
